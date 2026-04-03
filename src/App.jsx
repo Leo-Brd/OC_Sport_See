@@ -1,6 +1,7 @@
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import { useUserData } from './hooks/useUserData';
+import UserGreeting from './components/usergreeting/UserGreeting';
 
 
 function App() {
@@ -16,10 +17,14 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <Sidebar />
-      <main style={{ marginLeft: 100, padding: 40 }}>
-
-      </main>
+      <div className="content">
+        <Sidebar />
+        <main>
+          {userData && userData.data && (
+            <UserGreeting firstName={userData.data.userInfos.firstName} />
+          )}
+        </main>
+      </div>
     </div>
   )
 }

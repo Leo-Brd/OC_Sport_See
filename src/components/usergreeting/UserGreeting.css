@@ -1,0 +1,25 @@
+.user-greeting {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.user-greeting h1 {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 48px;
+  color: black;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.user-greeting span {
+  color: #ff0101;
+}
+
+.user-greeting p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0;
+  color: black;
+}
