@@ -4,9 +4,10 @@ import { useUserData } from './hooks/useUserData';
 
 
 function App() {
-  const { data: userData } = useUserData(12, '');
-  const { data: activityData } = useUserData(12, '/activity');
-  const { data: performanceData } = useUserData(12, '/performance');
+  const userId = import.meta.env.VITE_USER_ID;
+  const { data: userData } = useUserData(userId, '');
+  const { data: activityData } = useUserData(userId, '/activity');
+  const { data: performanceData } = useUserData(userId, '/performance');
 
   if (userData) console.log('Données utilisateur:', userData);
   if (activityData) console.log('Activité quotidienne:', activityData);
