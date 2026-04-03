@@ -1,7 +1,8 @@
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import { useUserData } from './hooks/useUserData';
-import UserGreeting from './components/usergreeting/UserGreeting';
+import UserGreeting from './components/userGreeting/UserGreeting';
+import DailyActivityChart from './components/dashboard/dailyActivityChart/DailyActivityChart';
 
 
 function App() {
@@ -23,6 +24,15 @@ function App() {
           {userData && userData.data && (
             <UserGreeting firstName={userData.data.userInfos.firstName} />
           )}
+
+          <div className='dashboard'>
+
+            <div className='dashboard-left'>
+              {activityData && activityData.data && (
+                 <DailyActivityChart sessions={activityData.data.sessions} />
+              )}
+            </div>
+          </div>
         </main>
       </div>
     </div>
