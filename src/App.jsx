@@ -1,9 +1,9 @@
-
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import { useUserData } from './hooks/useUserData';
 import UserGreeting from './components/userGreeting/UserGreeting';
 import DailyActivityChart from './components/dashboard/dailyActivityChart/DailyActivityChart';
+import UserKeyData from './components/userKeyData/UserKeyData';
 import { useMemo } from 'react';
 
 
@@ -38,10 +38,14 @@ function App() {
           )}
 
           <div className='dashboard'>
-
             <div className='dashboard-left'>
               {activityData && activityData.data && (
                  <DailyActivityChart sessions={activityData.data.sessions} />
+              )}
+            </div>
+            <div className='dashboard-right'>
+              {userData && userData.data && (
+                <UserKeyData keyData={userData.data.keyData} />
               )}
             </div>
           </div>
