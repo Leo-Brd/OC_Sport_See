@@ -1,18 +1,30 @@
+
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import { useUserData } from './hooks/useUserData';
 import UserGreeting from './components/userGreeting/UserGreeting';
 import DailyActivityChart from './components/dashboard/dailyActivityChart/DailyActivityChart';
+import { useMemo } from 'react';
 
+
+function getUserIdFromUrl() {
+  // Search for a userId parameter in the URL (ex: ?userId=12 or /user/12)
+  const search = window.location.search;
+  const params = new URLSearchParams(search);
+  if (params.has('userId')) return params.get('userId');
+  const match = window.location.pathname.match(/user\/(\d+)/);
+  if (match) return match[1];
+  return null;
+}
 
 function App() {
-  const userId = import.meta.env.VITE_USER_ID;
+  const userId = useMemo(() => getUserIdFromUrl(), []);
   const { data: userData } = useUserData(userId, '');
   const { data: activityData } = useUserData(userId, '/activity');
   const { data: performanceData } = useUserData(userId, '/performance');
 
-  if (userData) console.log('Données utilisateur:', userData);
-  if (activityData) console.log('Activité quotidienne:', activityData);
+  if (userData) console.log('User data:', userData);
+  if (activityData) console.log('Daily activity:', activityData);
   if (performanceData) console.log('Performance:', performanceData);
 
   return (
