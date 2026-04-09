@@ -9,7 +9,12 @@
 .daily-activity-chart h3 {
   margin: 0 0 20px 0;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: black;
   text-align: left;
+}
+
+.recharts-legend-item {
+  font-weight: 600;
+  font-size: 16px;
 }

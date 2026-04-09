@@ -1,4 +1,3 @@
-import React from "react";
 import './DailyActivityChart.css';
 import {
   BarChart,
@@ -26,17 +25,30 @@ export default function DailyActivityChart({ sessions }) {
         <BarChart data={data} barGap={8}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="day" tickLine={false} axisLine={{ stroke: '#DEDEDE' }} />
-          <YAxis yAxisId="kg" dataKey="kilogram" orientation="right" axisLine={false} tickLine={false} domain={[dataMin => Math.floor(dataMin - 1), dataMax => Math.ceil(dataMax + 1)]} />
+          <YAxis
+            yAxisId="kg"
+            dataKey="kilogram"
+            orientation="right"
+            axisLine={false}
+            tickLine={false}
+            domain={[dataMin => Math.floor(dataMin - 1), dataMax => Math.ceil(dataMax + 1)]}
+            tickFormatter={tick => Number.isInteger(tick) ? tick : Math.round(tick)}
+            allowDecimals={false}
+          />
           <YAxis yAxisId="cal" dataKey="calories" hide />
           <Tooltip
             contentStyle={{ background: '#E60000', color: '#fff', border: 'none', borderRadius: 5 }}
             labelStyle={{ display: 'none' }}
             itemStyle={{ color: '#fff' }}
-            formatter={(value, name) => [value, name === 'kilogram' ? 'kg' : 'Kcal']}
+            formatter={(value, name) => {
+              if (name === 'kilogram') return [`${value} kg`];
+              if (name === 'calories') return [`${value} Kcal`];
+              return value;
+            }}
           />
-          <Legend verticalAlign="top" align="right" iconType="circle" height={36} wrapperStyle={{ top: -20 }} formatter={v => v === 'kilogram' ? 'Poids (kg)' : 'Calories brûlées (kCal)'} />
-          <Bar yAxisId="kg" dataKey="kilogram" fill="#282D30" radius={[3, 3, 0, 0]} maxBarSize={7} name="kilogram" />
+          <Legend verticalAlign="top" align="right" iconType="circle" height={36} wrapperStyle={{ top: -45 }} formatter={v => v === 'kilogram' ? 'Poids (kg)' : 'Calories brûlées (kCal)'}/>
           <Bar yAxisId="cal" dataKey="calories" fill="#E60000" radius={[3, 3, 0, 0]} maxBarSize={7} name="calories" />
+          <Bar yAxisId="kg" dataKey="kilogram" fill="#282D30" radius={[3, 3, 0, 0]} maxBarSize={7} name="kilogram" />
         </BarChart>
       </ResponsiveContainer>
     </div>
