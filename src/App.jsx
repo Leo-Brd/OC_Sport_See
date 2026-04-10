@@ -3,7 +3,8 @@ import Sidebar from './components/sidebar/Sidebar';
 import { useUserData } from './hooks/useUserData';
 import UserGreeting from './components/userGreeting/UserGreeting';
 import DailyActivityChart from './components/dashboard/dailyActivityChart/DailyActivityChart';
-import UserKeyData from './components/userKeyData/UserKeyData';
+import UserKeyData from './components/dashboard/userKeyData/UserKeyData';
+import AverageSessionChart from './components/dashboard/averageSessionChart/AverageSessionChart';
 import { useMemo } from 'react';
 
 
@@ -22,10 +23,12 @@ function App() {
   const { data: userData } = useUserData(userId, '');
   const { data: activityData } = useUserData(userId, '/activity');
   const { data: performanceData } = useUserData(userId, '/performance');
+  const { data: averageSessionData } = useUserData(userId, '/average-sessions');
 
   if (userData) console.log('User data:', userData);
   if (activityData) console.log('Daily activity:', activityData);
   if (performanceData) console.log('Performance:', performanceData);
+  if (averageSessionData) console.log('Average session data:', averageSessionData);
 
   return (
     <div className="app">
@@ -42,6 +45,13 @@ function App() {
               {activityData && activityData.data && (
                  <DailyActivityChart sessions={activityData.data.sessions} />
               )}
+              <div className="dashboard-charts-row">
+                <div>{averageSessionData && averageSessionData.data && (
+                  <AverageSessionChart sessions={averageSessionData.data.sessions} />
+                )}</div>
+                <div>{/* Graphique 2 ici */}</div>
+                <div>{/* Graphique 3 ici */}</div>
+              </div>
             </div>
             <div className='dashboard-right'>
               {userData && userData.data && (

@@ -2,8 +2,8 @@
   background: #fbfbfb;
   border-radius: 5px;
   padding: 20px;
-  margin-bottom: 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-sizing: border-box;
 }
 
 .daily-activity-chart h3 {

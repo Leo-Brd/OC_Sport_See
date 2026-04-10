@@ -1,10 +1,10 @@
 import "./UserKeyData.css";
 
 // Import des icônes
-import calorieIcon from "../../assets/fire.svg";
-import proteinIcon from "../../assets/chicken.svg";
-import carbIcon from "../../assets/apple.svg";
-import lipidIcon from "../../assets/burger.svg";
+import calorieIcon from "../../../assets/fire.svg";
+import proteinIcon from "../../../assets/chicken.svg";
+import carbIcon from "../../../assets/apple.svg";
+import lipidIcon from "../../../assets/burger.svg";
 
 const keyDataList = [
   {
