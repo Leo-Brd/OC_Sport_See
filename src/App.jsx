@@ -8,6 +8,7 @@ import PerformanceChart from './components/dashboard/performanceChart/Performanc
 import ScoreChart from './components/dashboard/scoreChart/ScoreChart';
 import { useDashboardData } from './hooks/useDashboardData';
 import { useMemo } from 'react';
+import ErrorUser from './components/ErrorUser';
 
 function getUserIdFromUrl() {
   const search = window.location.search;
@@ -22,13 +23,28 @@ function App() {
   const userId = useMemo(() => getUserIdFromUrl(), []);
   const { userInfo, activitySessions, averageSessions, performanceData } = useDashboardData(userId);
 
+  // Affiche le composant d'erreur si aucun userId ou userInfo n'est trouvé
+  if (!userId || !userInfo) {
+    return (
+      <div className="app">
+        <Header />
+        <div className="content">
+          <Sidebar />
+          <main>
+            <ErrorUser />
+          </main>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="app">
       <Header />
       <div className="content">
         <Sidebar />
         <main>
-          {userInfo && <UserGreeting firstName={userInfo.firstName} />}
+          <UserGreeting firstName={userInfo.firstName} />
 
           <div className='dashboard'>
             <div className='dashboard-left'>
@@ -47,16 +63,12 @@ function App() {
                   )}
                 </div>
                 <div>
-                  {userInfo && (
-                    <ScoreChart score={userInfo.score} />
-                  )}
+                  <ScoreChart score={userInfo.score} />
                 </div>
               </div>
             </div>
             <div className='dashboard-right'>
-              {userInfo && (
-                <UserKeyData keyData={userInfo.keyData} />
-              )}
+              <UserKeyData keyData={userInfo.keyData} />
             </div>
           </div>
         </main>
