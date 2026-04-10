@@ -58,7 +58,7 @@ function App() {
                 </div>
                 <div>
                   {userData && userData.data && (
-                    <ScoreChart score={userData.data.score} />
+                    <ScoreChart score={userData.data.score ?? userData.data.todayScore} />
                   )}
                 </div>
               </div>
