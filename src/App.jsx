@@ -6,6 +6,7 @@ import DailyActivityChart from './components/dashboard/dailyActivityChart/DailyA
 import UserKeyData from './components/dashboard/userKeyData/UserKeyData';
 import AverageSessionChart from './components/dashboard/averageSessionChart/AverageSessionChart';
 import PerformanceChart from './components/dashboard/performanceChart/PerformanceChart';
+import ScoreChart from './components/dashboard/scoreChart/ScoreChart';
 import { useMemo } from 'react';
 
 
@@ -55,7 +56,11 @@ function App() {
                     <PerformanceChart performance={performanceData.data} />
                   )}
                 </div>
-                <div>{/* Graphique 3 ici */}</div>
+                <div>
+                  {userData && userData.data && (
+                    <ScoreChart score={userData.data.score} />
+                  )}
+                </div>
               </div>
             </div>
             <div className='dashboard-right'>
