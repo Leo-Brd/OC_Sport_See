@@ -10,14 +10,18 @@ export default function ScoreChart({ score }) {
 
   const data = [{ value: percent, fill: "#ff0101" }];
 
+  // Calcul dynamique de l'arc pour que la taille soit proportionnelle
+  const startAngle = 90;
+  const endAngle = 90 + (360 * (percent / 100));
+
   return (
     <div className="score-chart-container">
       <span className="score-label">Score</span>
       <ResponsiveContainer width="100%" height="100%">
         <RadialBarChart
           data={data}
-          startAngle={210}
-          endAngle={-30}
+          startAngle={startAngle}
+          endAngle={endAngle}
           innerRadius="70%"
           outerRadius="80%"
           barSize={10}
@@ -27,6 +31,7 @@ export default function ScoreChart({ score }) {
           <RadialBar
             dataKey="value"
             cornerRadius={5}
+            minAngle={15}
           />
         </RadialBarChart>
       </ResponsiveContainer>
