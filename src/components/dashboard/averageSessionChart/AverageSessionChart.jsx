@@ -8,7 +8,7 @@ import {
 } from "recharts";
 import "./AverageSessionChart.css";
 
-const dayLabels = ["L", "M", "M", "J", "V", "S", "D"];
+// Reçoit sessions déjà formatées : [{ index, day, sessionLength }]
 const TOP_MARGIN = 80;
 const BOTTOM_MARGIN = 20;
 
@@ -26,12 +26,7 @@ function CustomTooltip({ active, payload }) {
 export default function AverageSessionChart({ sessions }) {
   const [overlayLeft, setOverlayLeft] = useState(null);
 
-  const data = sessions.map((item, idx) => ({
-    ...item,
-    index: idx,
-    day: dayLabels[idx % 7],
-  }));
-
+  // sessions déjà formatées : [{ index, day, sessionLength }]
   return (
     <div className="average-session-chart-container">
       <h3 className="avg-chart-title">Durée moyenne des sessions</h3>
@@ -44,7 +39,7 @@ export default function AverageSessionChart({ sessions }) {
       )}
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
-          data={data}
+          data={sessions}
           margin={{ top: TOP_MARGIN, right: 0, left: 0, bottom: BOTTOM_MARGIN }}
           onMouseMove={(e) => {
             if (e && e.activeCoordinate) {
@@ -65,7 +60,7 @@ export default function AverageSessionChart({ sessions }) {
             axisLine={false}
             tickLine={false}
             tick={{ fontSize: 12, fill: "rgba(255,255,255,0.7)" }}
-            tickFormatter={(val) => dayLabels[val]}
+            tickFormatter={(val) => sessions[val]?.day}
             padding={{ left: 20, right: 20 }}
             interval={0}
           />
