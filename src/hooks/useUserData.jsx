@@ -1,7 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { fetchMock } from "../mocks/mockService";
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+
+const initialState = { data: null, loading: true, error: null };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'loading': return { data: null, loading: true, error: null };
+    case 'success': return { data: action.data, loading: false, error: null };
+    case 'error':   return { data: null, loading: false, error: action.error };
+    default:        return state;
+  }
+}
 
 /**
  * Hook générique pour récupérer des données depuis un endpoint utilisateur.
@@ -11,14 +22,12 @@ const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
  * @returns {{ data: any, loading: boolean, error: any }}
  */
 export function useUserData(id, endpoint = '') {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [{ data, loading, error }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     if (!id && id !== 0) return;
-    setLoading(true);
-    setError(null);
+
+    dispatch({ type: 'loading' });
 
     const request = USE_MOCK
       ? fetchMock(id, endpoint)
@@ -29,9 +38,8 @@ export function useUserData(id, endpoint = '') {
           });
 
     request
-      .then((json) => setData(json))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
+      .then((data) => dispatch({ type: 'success', data }))
+      .catch((error) => dispatch({ type: 'error', error }));
   }, [id, endpoint]);
 
   return { data, loading, error };
