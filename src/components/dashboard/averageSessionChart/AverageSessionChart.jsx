@@ -3,6 +3,7 @@ import {
   LineChart,
   Line,
   XAxis,
+  YAxis,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
@@ -64,12 +65,13 @@ export default function AverageSessionChart({ sessions }) {
             padding={{ left: 20, right: 20 }}
             interval={0}
           />
+          <YAxis hide={true} />
           <Tooltip
             content={<CustomTooltip />}
             cursor={false}
           />
           <Line
-            type="natural"
+            type="monotoneX"
             dataKey="sessionLength"
             stroke="url(#lineOpacity)"
             strokeWidth={2}
