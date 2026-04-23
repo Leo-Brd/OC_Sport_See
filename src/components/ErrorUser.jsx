@@ -14,7 +14,7 @@ export default function ErrorUser() {
         cursor: "pointer",
         fontSize: "1rem"
       }}
-        onClick={() => window.location.href = "/"}
+        onClick={() => globalThis.location.href = "/"}
       >
         Retour au menu
       </button>

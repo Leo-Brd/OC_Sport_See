@@ -11,10 +11,11 @@ import { useMemo } from 'react';
 import ErrorUser from './components/ErrorUser';
 
 function getUserIdFromUrl() {
-  const search = window.location.search;
+  const search = globalThis.location.search;
   const params = new URLSearchParams(search);
   if (params.has('userId')) return params.get('userId');
-  const match = window.location.pathname.match(/user\/(\d+)/);
+  const regex = /user\/(\d+)/;
+  const match = regex.exec(globalThis.location.pathname);
   if (match) return match[1];
   return null;
 }
